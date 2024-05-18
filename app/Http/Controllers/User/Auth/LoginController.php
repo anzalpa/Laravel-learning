@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth\Admin;
+namespace App\Http\Controllers\User\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
@@ -12,7 +12,7 @@ class LoginController extends Controller
 {
     public function login(): View
     {
-        return view('admin.login');
+        return view('user.login');
     }
 
     public function authenticate(Request $request): RedirectResponse
@@ -22,10 +22,10 @@ class LoginController extends Controller
             'password' => ['required'],
         ]);
 
-        if (Auth::guard('admin')->attempt($credentials)) {
+        if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect()->intended('admin/dashboard');
+            return redirect()->intended('users/dashboard');
         }
 
         return back()->withErrors([

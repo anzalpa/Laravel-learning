@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth\Customer;
+namespace App\Http\Controllers\Customer\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
@@ -25,7 +25,7 @@ class LoginController extends Controller
         if (Auth::guard('customer')->attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect()->intended('customer/dashboard');
+            return redirect()->intended('customers/dashboard');
         }
 
         return back()->withErrors([
